@@ -17,3 +17,6 @@
 varMainDir=/opt/docker/this-repo
 
 find $varMainDir/service -mindepth 1 -maxdepth 1 -type d -exec ln -sbf $varMainDir/.env {}/.env \;
+
+# Now, remove the .env~ files
+find $varMainDir/service -mindepth 1 -maxdepth 1 -type d -exec rm {}/.env~ \;
