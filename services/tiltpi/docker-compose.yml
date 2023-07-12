@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+
+####################
+# Brewing
+####################
+   tiltpi:
+    container_name: TiltPi
+    image: snoopeppers/tiltpi-docker:latest
+    hostname: tiltpi
+    
+    network_mode: host
+
+    environment:
+      TZ: ${TZ}
+
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /run/dbus:/run/dbus:ro
+      - ${CONFIGDIR}/tiltpi:/data # node-reds data
+
+      #- /mnt/usb:/mnt/usb # USB logging, optional
+    restart: unless-stopped
