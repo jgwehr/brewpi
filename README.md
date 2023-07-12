@@ -1,6 +1,3 @@
-[![GitHub Activity][commits-shield]][commits]
-
-
 # Technology
 
 | Infrastructure | Networking | Brewing |
