@@ -1,11 +1,12 @@
-
-Includes: 
+![GitHub last commit][commits-shield] [![GitHub Activity][commits-shield]][commits]
 
 
 # Technology
 
-| Infrastructure | Media | Other |
+| Infrastructure | Networking | Brewing |
 | :-: | :-: |  :-:  |
+| Dozzle |  Pihole   |  TiltPi |
+| Socket Proxy |  Unbound  |  |
 
 
 ### Notes
@@ -23,16 +24,20 @@ Work in Progress. Recommendations via *[multiple docker files](https://nickjanet
 
 ```
 ├── /opt
-│  └── docker
-│     └── brewpi (this repo)
-|        ├── dockerfiles (for custom builds)
-│        |  └── builder-*.sh (for building files to upload)
-│        |  └── *.dockerfile (for adhoc builds)
-|        ├── staticconfig (service-specific configuration)
-│        |  └── * (for each service)
-│        |     └── *
-│        ├── .env
-│        └── docker-compose.yml
+│  └── docker/
+│     └── brewpi/ (this repo)
+|        ├── scripts/ (these help you setup or update the repo)
+│        |  ├── run-each-update.sh (when you pull a new version)
+│        |  └── run-once.sh (for initial setup)
+|        ├── services/ (modular docker-compose files)
+│        |  ├── infra-docker/ (a collection of services which work with, or depend on, one another)
+│        |  |   ├── configtemplates/ (examples which need to be copied to your config folder, then modified)
+│        |  |   ├── dockerfiles/ (build files)
+│        |  |   ├── staticconfig/ (configuration the image uses which do NOT need modification)
+│        |  |   ├── docker-compose.yml
+│        |  |   └── [sym] .env (a symbolic link to the repos primary .env file. This allows easy maintenance within Docker's limitations. It is created by a script)
+│        |  └── ...
+│        └── .env.template (an example which should be copied, then modified)
 ├── /srv
 │  ├── docker (for container's configurations)
 │  ├── cache
@@ -41,16 +46,6 @@ Work in Progress. Recommendations via *[multiple docker files](https://nickjanet
    ├── db
    └── staticfiles
 ```
-
-### These may be created with the following cmds
-`cd scripts`
-`chmod +x start.sh`  
-`./start.sh`
-
-### Recursively own the /data directory
-sudo chown -R $USER:$USER /data
-sudo chmod -R a=,a+rX,u+w,g+w /data
-
 
 ### Docker Compose (and needed files)
 `/opt`
