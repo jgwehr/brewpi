@@ -65,8 +65,6 @@ services:
 # Docker Environment
 ####################
 
-
-
 networks:
   socky_proxy-net:
     name: socky_proxy-net
