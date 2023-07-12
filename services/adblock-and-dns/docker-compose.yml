@@ -1,4 +1,5 @@
 version: "3.9"
+name: "adblock-and-dns"
 
 services:
   pihole:
@@ -18,8 +19,8 @@ services:
     ports:
       - ${PORT_PIHOLE_WEB:-80}:80
       - ${PORT_PIHOLE_WEBSSL:-443}:443
-      - ${SERVER_URL}:${PORT_PIHOLE_TCP:-53}:53/tcp
-      - ${SERVER_URL}:${PORT_PIHOLE_UDP:-53}:53/udp
+      - ${PORT_PIHOLE_TCP:-53}:53/tcp
+      - ${PORT_PIHOLE_UDP:-53}:53/udp
     #  - ${PORT_PIHOLE_DHCP:-67}:67/udp # Only required if you are using Pi-hole as your DHCP server
 
     environment:
@@ -61,6 +62,28 @@ services:
 
     healthcheck:
       disable: true
+    restart: unless-stopped
+
+  orbital-sync:
+    container_name: orbital-sync
+    image: ghcr.io/mattwebbio/orbital-sync:1.5
+
+    depends_on:
+      - pihole
+
+    environment:
+      TZ: ${TZ}
+      PRIMARY_HOST_BASE_URL: ${ORBITAL_PRIMARY_HOST_BASE_URL}
+      PRIMARY_HOST_PATH: ${ORBITAL_PRIMARY_HOST_PATH}
+      PRIMARY_HOST_PASSWORD: ${ORBITAL_PRIMARY_HOST_PASSWORD}
+
+      INTERVAL_MINUTES: ${ORBITAL_SYNC_INTERVAL}
+      UPDATE_GRAVITY: ${ORBITAL_UPDATE_GRAVITY}
+
+      SECONDARY_HOST_1_BASE_URL: http://${FTLCONF_LOCAL_IPV4}:${PORT_PIHOLE_WEB}
+      SECONDARY_HOST_1_PATH: ${ORBITAL_SECONDARY_HOST_1_PATH}
+      SECONDARY_HOST_1_PASSWORD: ${PIHOLE_PASSWORD}
+
     restart: unless-stopped
 
 networks:
