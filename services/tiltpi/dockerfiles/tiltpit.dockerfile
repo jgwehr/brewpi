@@ -20,12 +20,12 @@ RUN set -ex && \
 RUN npm config set cache /data/.npm --global
 
 
-#RUN wget https://github.com/baronbrew/aioblescan/archive/master.zip
-RUN wget https://github.com/baronbrew/aioblescan/archive/refs/tags/0.2.4.zip
+RUN wget https://github.com/baronbrew/aioblescan/archive/master.zip
+#RUN wget https://github.com/baronbrew/aioblescan/archive/refs/tags/0.2.4.zip
 
-RUN unzip 0.2.4.zip
+RUN unzip master.zip
 
-WORKDIR /aioblescan-0.2.4/
+WORKDIR /aioblescan-master/
 
 RUN python3 setup.py install
 
@@ -36,7 +36,6 @@ RUN npm install node-red node-red-dashboard -g
 ENV NODE_RED_VERSION=$NODE_RED_VERSION \
     NODE_PATH=/usr/src/node-red/node_modules:/data/node_modules \
     PATH=/usr/src/node-red/node_modules/.bin:${PATH}
-
 
 COPY flows.json /flows.json
 

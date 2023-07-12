@@ -7,19 +7,18 @@ services:
 ####################
    tiltpi:
     container_name: TiltPi
-    image: davismariotti/tiltpi-docker:1.1
+    image: snoopeppers/tiltpi-docker:latest
+    hostname: tiltpi
     
     network_mode: host
-    cap_add:
-      - NET_ADMIN
-
-    ports:
-      - ${PORT_TILTPI:-1880}:1880
 
     environment:
       TZ: ${TZ}
 
     volumes:
       - /etc/timezone:/etc/timezone:ro
-      - ${CONFIGDIR}/tiltpi2:/data # node-reds data
+      - /run/dbus:/run/dbus:ro
+      - ${CONFIGDIR}/tiltpi:/data # node-reds data
+
+      #- /mnt/usb:/mnt/usb # USB logging, optional
     restart: unless-stopped
