@@ -1,4 +1,4 @@
-![GitHub last commit][commits-shield] [![GitHub Activity][commits-shield]][commits]
+[![GitHub Activity][commits-shield]][commits]
 
 
 # Technology
