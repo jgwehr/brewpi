@@ -6,7 +6,7 @@ services:
 # Brewing
 ####################
    tiltpi:
-    container_name: TiltPi
+    container_name: tiltpi
     image: snoopeppers/tiltpi-docker:latest
     hostname: tiltpi
     
