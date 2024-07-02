@@ -13,7 +13,7 @@ services:
 
     networks:
       dns-net:
-        ipv4_address: 172.20.0.2
+        ipv4_address: 172.20.0.12
 
     # For DHCP it is recommended to remove these ports and instead add: network_mode: "host"
     ports:
@@ -27,7 +27,7 @@ services:
       TZ: ${TZ}
       WEBPASSWORD: ${PIHOLE_PASSWORD}
       FTLCONF_LOCAL_IPV4: ${FTLCONF_LOCAL_IPV4}
-      PIHOLE_DNS_: 172.20.0.3#5053
+      PIHOLE_DNS_: 172.20.0.13#5053
       DHCP_ACTIVE: ${PIHOLE_DHCP_ACTIVE:-false}
       PIHOLE_DOMAIN: ${PIHOLE_DOMAIN:-lan}
       DNSMASQ_LISTENING: 'all'
@@ -55,7 +55,7 @@ services:
 
     networks:
       dns-net:
-        ipv4_address: 172.20.0.3
+        ipv4_address: 172.20.0.13
 
     volumes:
       - ${CONFIGDIR}/unbound:/opt/unbound/etc/unbound
