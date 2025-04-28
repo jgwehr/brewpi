@@ -63,42 +63,6 @@ services:
       disable: true
     restart: unless-stopped
 
-  orbital-sync:
-    container_name: orbital-sync
-    image: ghcr.io/mattwebbio/orbital-sync:1.8.1
-
-    depends_on:
-      - pihole
-
-    environment:
-      TZ: ${TZ}
-      PRIMARY_HOST_BASE_URL: ${ORBITAL_PRIMARY_HOST_BASE_URL}
-      PRIMARY_HOST_PATH: ${ORBITAL_PRIMARY_HOST_PATH}
-      PRIMARY_HOST_PASSWORD: ${ORBITAL_PRIMARY_HOST_PASSWORD}
-
-      INTERVAL_MINUTES: ${ORBITAL_SYNC_INTERVAL}
-      UPDATE_GRAVITY: ${ORBITAL_UPDATE_GRAVITY}
-
-      SECONDARY_HOST_1_BASE_URL: http://${FTLCONF_LOCAL_IPV4}:${PORT_PIHOLE_WEB}
-      SECONDARY_HOST_1_PASSWORD: ${PIHOLE_PASSWORD} # I use the same password for both; change this if you want each pihole to have different passwords
-      SECONDARY_HOST_1_PATH: ${ORBITAL_SECONDARY_HOST_1_PATH}
-
-      SYNC_V5_WHITELIST: ${ORBITAL_SYNC_V5_WHITELIST}
-      SYNC_V5_REGEX_WHITELIST: ${ORBITAL_SYNC_V5_REGEX_WHITELIST}
-      SYNC_V5_BLACKLIST: ${ORBITAL_SYNC_V5_BLACKLIST}
-      SYNC_V5_REGEX_LIST: ${ORBITAL_SYNC_V5_REGEX_LIST}
-      SYNC_V5_AD_LIST: ${ORBITAL_SYNC_V5_AD_LIST}
-      SYNC_V5_CLIENT: ${ORBITAL_SYNC_V5_CLIENT}
-      SYNC_V5_GROUP: ${ORBITAL_SYNC_V5_GROUP}
-      SYNC_V5_AUDIT_LOG: ${ORBITAL_SYNC_V5_AUDIT_LOG}
-      SYNC_V5_STATIC_DHCP_LEASES: ${ORBITAL_SYNC_V5_STATIC_DHCP_LEASES}
-      SYNC_V5_LOCAL_DNS_RECORDS: ${ORBITAL_SYNC_V5_LOCAL_DNS_RECORDS}
-      SYNC_V5_LOCAL_CNAME_RECORDS: ${ORBITAL_SYNC_V5_LOCAL_CNAME_RECORDS}
-      SYNC_V5_FLUSH_TABLES: ${ORBITAL_SYNC_V5_FLUSH_TABLES}
-
-
-    restart: unless-stopped
-
 networks:
   dns-net:
     name: dns-net
