@@ -1,17 +1,39 @@
-
 ####################
 # .env Configuration
 ####################
 
+## Included projects
+
+- https://github.com/pi-hole/pi-hole
+- https://github.com/MatthewVance/unbound-docker
+- https://github.com/lovelaze/nebula-sync
+
+## Dependencies
+
+- My Pi-hole setup depends on Unbound for DNS resolution. However, this isn't required. You can choose to use any other DNS service instead. Follow Pi-Hole's instructions. But, generally, this means removing `FTLCONF_dns_revServers` and configuring `FTLCONF_dns_upstreams`
 
 
-### Orbital Sync
-Because I have only one "extra" pi-hole, and I host the secondary on this server, I will re-use its variables instead of creating new ones.
-If you have 3+ Pi-holes or a different docker setup, please review [Orbital Sync](https://github.com/mattwebbio/orbital-sync) readme and adjust your .env and compose files as needed
+## Environment and Configuration
 
-1. Your primary Pihole (ie some other server) should be configured to `ORBITAL_PRIMARY_HOST_BASE_URL`,  `ORBITAL_PRIMARY_HOST_PATH`, `ORBITAL_PRIMARY_HOST_PASSWORD`
-1. This server is your "secondary" server and so most of the variables are from the pihole configuration. However, I left path just in case: `ORBITAL_SECONDARY_HOST_1_PATH`
-1. Configure the frequency of the sync in minutes `ORBITAL_SYNC_INTERVAL`
-1. For most people who are not using DHCP or other advanced pihole features, the most critical feature is to update the block list. Set `ORBITAL_UPDATE_GRAVITY` to true
+### Files
+1. Copy `./configtemplates/pihole/resolv.conf` to your config directory for pihole `${CONFIGDIR}/pihole/resolv.conf`
+1. Copy all files in `./configtemplates/unbound` to your config directory for unbound `${CONFIGDIR}/unbound`
 
-There are notifications as well. However, these currently only support SMTP or honeybadger which I don't use.
+
+
+### Ports
+- `PORT_PIHOLE_WEB`
+- `PORT_PIHOLE_WEBSSL`
+- `PORT_PIHOLE_TCP`
+- `PORT_PIHOLE_UDP`
+
+
+### URLs
+- `SERVER_URL` - universal. your internal url
+
+### Functionality
+
+- `PIHOLE_PASSWORD` - Used for both accessing the Pi-Hole web UI but behind the scenes for Nebula Sync.
+- `PIHOLE_DHCP_ACTIVE` - I don't use the DHCP functionality, please refer to Pi-hole documentation if you want to use this.
+- `PIHOLE_DOMAIN` - Not super useful unless you use DHCP
+- `PIHOLE_WEBTHEME`
